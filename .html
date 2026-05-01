@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoTube - Your Video Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles if needed, though Tailwind is preferred */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter font as a common modern choice */
+        }
+        /* Style for a subtle hover effect on video cards */
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+    <header class="bg-gray-800 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-bold text-red-500">VideoTube</a>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href="#" class="hover:text-red-400">Home</a></li>
+                    <li><a href="#" class="hover:text-red-400">Trending</a></li>
+                    <li><a href="#" class="hover:text-red-400">Categories</a></li>
+                    <li><a href="#" class="hover:text-red-400">Upload (Placeholder)</a></li>
+                </ul>
+            </nav>
+            <div class="relative">
+                <input type="text" class="bg-gray-700 text-white text-sm rounded-full py-2 px-4 pl-10 focus:outline-none focus:bg-gray-600 focus:ring-1 focus:ring-red-500" placeholder="Search videos...">
+                <div class="absolute top-0 left-0 mt-2 ml-3">
+                    <i class="fas fa-search text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+        
+        <h1 class="text-3xl font-semibold text-gray-100 mb-8">Featured Videos</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            <div class="video-card bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out">
+                <a href="#" class="block">
+                    <img src="https://placehold.co/600x400/334155/e2e8f0?text=Video+Thumbnail+1" 
+                         alt="Video Thumbnail 1" 
+                         class="w-full h-48 object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 bg-black bg-opacity-40">
+                        <i class="fas fa-play-circle fa-3x text-white"></i>
+                    </div>
+                </a>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-1 truncate">
+                        <a href="#" class="hover:text-red-400">Amazing Nature Documentary</a>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2 truncate">A breathtaking look at the wonders of the natural world.</p>
+                    <div class="text-xs text-gray-500">
+                        <span>Channel Name</span> &bull; <span>1.2M views</span> &bull; <span>2 weeks ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out">
+                <a href="#" class="block">
+                    <img src="https://placehold.co/600x400/1e293b/e2e8f0?text=Gaming+Highlights" 
+                         alt="Video Thumbnail 2" 
+                         class="w-full h-48 object-cover">
+                </a>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-1 truncate">
+                        <a href="#" class="hover:text-red-400">Epic Gaming Moments Compilation</a>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2 truncate">The best highlights from recent tournaments.</p>
+                    <div class="text-xs text-gray-500">
+                        <span>GamerPro</span> &bull; <span>500K views</span> &bull; <span>3 days ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out">
+                <a href="#" class="block">
+                    <img src="https://placehold.co/600x400/475569/e2e8f0?text=Cooking+Tutorial" 
+                         alt="Video Thumbnail 3" 
+                         class="w-full h-48 object-cover">
+                </a>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-1 truncate">
+                        <a href="#" class="hover:text-red-400">Learn to Bake: Perfect Sourdough</a>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2 truncate">Step-by-step guide to baking delicious sourdough bread.</p>
+                    <div class="text-xs text-gray-500">
+                        <span>Chef's Kitchen</span> &bull; <span>80K views</span> &bull; <span>1 month ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out">
+                <a href="#" class="block">
+                    <img src="https://placehold.co/600x400/0f172a/e2e8f0?text=Tech+Review" 
+                         alt="Video Thumbnail 4" 
+                         class="w-full h-48 object-cover">
+                </a>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-1 truncate">
+                        <a href="#" class="hover:text-red-400">Latest Smartphone Unboxing & Review</a>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2 truncate">Checking out the newest features of the flagship phone.</p>
+                    <div class="text-xs text-gray-500">
+                        <span>TechGuru</span> &bull; <span>250K views</span> &bull; <span>1 week ago</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-card bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out">
+                <a href="#" class="block">
+                    <img src="https://placehold.co/600x400/334155/e2e8f0?text=Music+Video" 
+                         alt="Video Thumbnail 5" 
+                         class="w-full h-48 object-cover">
+                </a>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-1 truncate">
+                        <a href="#" class="hover:text-red-400">New Hit Single - Official Music Video</a>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2 truncate">The latest chart-topper with stunning visuals.</p>
+                    <div class="text-xs text-gray-500">
+                        <span>PopStar Records</span> &bull; <span>5M views</span> &bull; <span>5 days ago</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="video-card bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 ease-in-out">
+                <a href="#" class="block">
+                    <img src="https://placehold.co/600x400/1e293b/e2e8f0?text=Travel+Vlog" 
+                         alt="Video Thumbnail 6" 
+                         class="w-full h-48 object-cover">
+                </a>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-100 mb-1 truncate">
+                        <a href="#" class="hover:text-red-400">Exploring Ancient Ruins in Rome</a>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-2 truncate">A journey through history and breathtaking landscapes.</p>
+                    <div class="text-xs text-gray-500">
+                        <span>Wanderlust Adventures</span> &bull; <span>90K views</span> &bull; <span>2 months ago</span>
+                    </div>
+                </div>
+            </div>
+
+        </div> <div class="mt-12 flex justify-center">
+            <nav class="inline-flex rounded-md shadow">
+                <a href="#" class="px-4 py-2 border border-gray-700 bg-gray-800 text-gray-300 text-sm font-medium rounded-l-md hover:bg-gray-700">
+                    Previous
+                </a>
+                <a href="#" class="px-4 py-2 border-t border-b border-gray-700 bg-gray-800 text-red-500 text-sm font-medium hover:bg-gray-700">
+                    1
+                </a>
+                <a href="#" class="px-4 py-2 border-t border-b border-gray-700 bg-gray-800 text-gray-300 text-sm font-medium hover:bg-gray-700">
+                    2
+                </a>
+                <a href="#" class="px-4 py-2 border-t border-b border-gray-700 bg-gray-800 text-gray-300 text-sm font-medium hover:bg-gray-700">
+                    3
+                </a>
+                <a href="#" class="px-4 py-2 border border-gray-700 bg-gray-800 text-gray-300 text-sm font-medium rounded-r-md hover:bg-gray-700">
+                    Next
+                </a>
+            </nav>
+        </div>
+
+    </main>
+
+    <footer class="bg-gray-800 mt-12 py-8 text-center">
+        <div class="container mx-auto px-6">
+            <p class="text-gray-400">&copy; 2025 VideoTube. All Rights Reserved.</p>
+            <p class="text-gray-500 text-sm">A project to showcase embedded video content.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
