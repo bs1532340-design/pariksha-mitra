@@ -1,13 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { Loader2 } from 'lucide-react'
+import { Loader2, ArrowRight, Check } from 'lucide-react'
+import Navigation from '@/components/navigation'
+import Footer from '@/components/footer'
 import ProposalForm from '@/components/proposal-form'
 import ProposalOutput from '@/components/proposal-output'
 import PricingSection from '@/components/pricing-section'
 
 export default function Page() {
+  const { data: session } = useSession()
+  const router = useRouter()
   const [proposal, setProposal] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -53,69 +59,62 @@ export default function Page() {
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
-        <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 md:gap-3 min-w-0">
-            <Image
-              src="/logo.png"
-              alt="ClientForge"
-              width={40}
-              height={40}
-              className="rounded-lg flex-shrink-0"
-            />
-            <span className="text-lg md:text-xl font-bold text-foreground truncate">ClientForge</span>
-          </div>
-          <span className="text-xs md:text-sm text-muted-foreground text-right whitespace-nowrap">Forge Winning Proposals with AI</span>
-        </div>
-      </nav>
+    <main className="min-h-screen bg-gradient-to-br from-background via-background to-accent/5">
+      <Navigation />
 
-      {/* Background gradient accent - animated */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 right-0 w-48 h-48 md:w-96 md:h-96 bg-accent/5 rounded-full blur-3xl float float-delay-1000"></div>
-        <div className="absolute bottom-0 left-0 w-48 h-48 md:w-96 md:h-96 bg-accent/3 rounded-full blur-3xl float float-delay-500"></div>
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex min-h-[calc(100vh-70px)] flex-col items-center justify-center px-4 md:px-6 py-8 md:py-12">
+      {/* Hero Section */}
+      <div className="relative z-10 flex min-h-[calc(100vh-70px)] flex-col items-center justify-center px-4 py-8 md:py-12">
         <div className="w-full max-w-6xl space-y-8 md:space-y-12">
           {/* Header */}
           <div className="text-center space-y-4 md:space-y-6 animate-in fade-in duration-500">
-            <div className="flex justify-center slide-up">
-              <Image
-                src="/logo.png"
-                alt="ClientForge"
-                width={80}
-                height={80}
-                className="rounded-lg shadow-lg shadow-accent/20 w-16 h-16 md:w-20 md:h-20 float"
-              />
+            <div className="flex justify-center">
+              <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-lg bg-gradient-to-br from-accent to-accent/60 flex items-center justify-center shadow-lg shadow-accent/20">
+                <span className="text-white font-bold text-2xl md:text-3xl">CF</span>
+              </div>
             </div>
 
-            <div className="space-y-3 md:space-y-4 slide-up-delay-100">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-balance">
+            <div className="space-y-3 md:space-y-4">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance">
                 <span className="bg-gradient-to-r from-accent to-accent/60 bg-clip-text text-transparent">
                   Forge Winning Proposals
                 </span>{' '}
                 with AI
               </h1>
 
-              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto text-balance px-2 slide-up-delay-200">
+              <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto text-balance px-2">
                 Create compelling, customized proposals in seconds. Support for multiple
                 languages including Hindi, English, and Hinglish.
               </p>
+
+              {!session && (
+                <div className="flex gap-4 justify-center pt-4 flex-wrap">
+                  <button
+                    onClick={() => router.push('/signup')}
+                    className="px-6 md:px-8 py-2.5 md:py-3 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold rounded-lg transition-all duration-300 flex items-center gap-2"
+                  >
+                    Get Started Free
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                  <button
+                    onClick={() => router.push('/pricing')}
+                    className="px-6 md:px-8 py-2.5 md:py-3 border border-border/50 hover:border-accent/50 text-foreground hover:text-accent font-semibold rounded-lg transition-all duration-300"
+                  >
+                    View Pricing
+                  </button>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Main Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
             {/* Form Side */}
-            <div className="flex justify-center md:justify-end w-full slide-in-left">
+            <div className="flex justify-center md:justify-end w-full">
               <ProposalForm onSubmit={handleGenerateProposal} />
             </div>
 
             {/* Output Side */}
-            <div className="flex justify-center md:justify-start w-full slide-in-right">
+            <div className="flex justify-center md:justify-start w-full">
               {error && (
                 <div className="w-full max-w-2xl p-4 md:p-5 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive animate-in fade-in space-y-2">
                   <p className="font-medium text-sm md:text-base">Error: {error}</p>
@@ -164,15 +163,104 @@ export default function Page() {
         </div>
       </div>
 
+      {/* Features Section */}
+      <section id="features" className="relative z-10 py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              Why Choose ClientForge?
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Everything you need to create professional proposals in minutes
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'AI-Powered',
+                description: 'Advanced AI generates professional proposals tailored to your needs',
+                icon: '✨',
+              },
+              {
+                title: 'Multi-Language',
+                description: 'Support for Hindi, English, and Hinglish to reach all your clients',
+                icon: '🌐',
+              },
+              {
+                title: 'Export Options',
+                description: 'Download as PDF with branding, copy to clipboard, or share directly',
+                icon: '📤',
+              },
+              {
+                title: 'Real-time Generation',
+                description: 'Get your proposals in seconds, not hours',
+                icon: '⚡',
+              },
+              {
+                title: 'Professional Templates',
+                description: 'Pre-designed templates for all types of projects and services',
+                icon: '📋',
+              },
+              {
+                title: 'Usage Tracking',
+                description: 'Monitor your proposal generation history and usage statistics',
+                icon: '📊',
+              },
+            ].map((feature, idx) => (
+              <div
+                key={idx}
+                className="p-6 rounded-2xl border border-border/50 bg-card/30 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 transition-all duration-500 group"
+              >
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-accent transition-colors">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">{feature.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Section */}
       <PricingSection />
 
-      {/* Footer */}
-      <footer className="relative z-10 border-t border-border/40 bg-background/50 backdrop-blur-sm py-8 md:py-12 px-4 md:px-6">
-        <div className="max-w-6xl mx-auto text-center text-xs md:text-sm text-muted-foreground">
-          <p>© 2024 ClientForge. Forge Winning Proposals with AI.</p>
+      {/* CTA Section */}
+      <section className="relative z-10 py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground">
+              Ready to transform your proposal process?
+            </h2>
+            <p className="text-lg text-muted-foreground">
+              Join thousands of freelancers and agencies already using ClientForge
+            </p>
+          </div>
+
+          <div className="flex gap-4 justify-center flex-wrap">
+            {!session && (
+              <>
+                <button
+                  onClick={() => router.push('/signup')}
+                  className="px-8 py-3 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold rounded-lg transition-all duration-300 flex items-center gap-2"
+                >
+                  Start Creating Proposals
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => router.push('/pricing')}
+                  className="px-8 py-3 border border-border/50 hover:border-accent/50 text-foreground hover:text-accent font-semibold rounded-lg transition-all duration-300"
+                >
+                  View Plans
+                </button>
+              </>
+            )}
+          </div>
         </div>
-      </footer>
+      </section>
+
+      <Footer />
     </main>
   )
 }

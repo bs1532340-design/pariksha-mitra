@@ -1,189 +1,234 @@
-# ClientForge - Forge Winning Proposals with AI
+# ClientForge - AI-Powered Proposal Generator
 
-A modern, professional proposal generator web app that uses Google's Gemini 3 Flash model to generate customized business proposals in seconds.
+A professional SaaS platform for generating compelling proposals with AI assistance. Support for multiple languages including Hindi, English, and Hinglish.
 
 ## Features
 
-### Form Controls
-- **Service Type** dropdown (Web Development, Mobile App, UI/UX Design, Consulting, Digital Marketing, AI Development)
-- **Client Type** selector (Startup, SMB, Enterprise, Non-Profit, Individual/Freelancer)
-- **Budget Range** input field
-- **Language selector** (English, Hindi, Hinglish)
-- **Additional Details** textarea for custom requirements
-- **Generate Proposal** button with loading state
-
-### Output
-- Professional proposal card with formatted sections
-- Copy to clipboard button with success feedback
-- Download as text file option
-- Smooth fade-in animations
-
-### Language Support
-- **English**: Professional formal business language
-- **Hindi**: Hindi with professional business terminology
-- **Hinglish**: Natural code-switching between Hindi and English
-
-## Design Features
-- **Dark Modern Theme**: Deep navy background with vibrant blue accents
-- **Smooth Animations**: Fade-in and scale effects
-- **Mobile Responsive**: Optimized for all screen sizes
-- **Professional UI**: Clean startup aesthetic with modern styling
-- **Gradient Accents**: Subtle background effects
+- **AI-Powered Generation**: Create professional proposals in seconds using advanced AI
+- **Multi-Language Support**: Generate proposals in Hindi, English, and Hinglish
+- **Professional Templates**: Pre-designed templates for various project types
+- **Export Options**: Download as PDF, copy to clipboard, or share directly
+- **User Dashboard**: Track proposal history and usage statistics
+- **Subscription Plans**: Free tier with 3 proposals/day, Pro plan with unlimited proposals
+- **Secure Authentication**: NextAuth.js with Google OAuth and email/password login
+- **Payment Integration**: Razorpay integration for Pro plan subscription
 
 ## Tech Stack
-- **Next.js 16** with App Router
-- **Tailwind CSS v4** with custom design tokens
-- **Google Generative AI** (Gemini 1.5 Flash)
-- **TypeScript** for type safety
-- **Lucide React** icons
-- **Fetch API** for HTTP requests
 
-## Setup & Configuration
+- **Frontend**: Next.js 16, React 19, TypeScript, Tailwind CSS
+- **Backend**: Next.js API Routes, Node.js
+- **Database**: PostgreSQL with Prisma ORM
+- **Authentication**: NextAuth.js with Prisma adapter
+- **AI**: Google Gemini API
+- **Payments**: Razorpay
+- **Hosting**: Vercel
 
-### 1. Get a Google Gemini API Key
+## Getting Started
 
-1. Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Click "Create API key in new project" or use an existing project
-3. Copy your API key
+### Prerequisites
 
-### 2. Add API Key to Project
+- Node.js 18+ and pnpm
+- PostgreSQL database
+- Google OAuth credentials
+- Google Gemini API key
+- Razorpay account (for payments)
 
-In the v0 project settings:
-1. Click the settings icon (top right)
-2. Go to **Vars** section
-3. Add a new variable:
-   - **Key**: `GOOGLE_GEMINI_API_KEY`
-   - **Value**: Paste your API key
-4. Save changes
+### Installation
 
-The app will automatically use this environment variable for all API calls.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/clientforge.git
+   cd clientforge
+   ```
 
-## How It Works
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-1. **Form Submission**: User fills in the form with service type, client type, budget, language, and additional details
-2. **Prompt Generation**: The app creates a detailed prompt with all form inputs and language-specific instructions
-3. **Gemini API Call**: Sends request to Google's Gemini 1.5 Flash model using the Generative Language API
-4. **Proposal Generation**: Gemini generates a professional, tailored proposal in the selected language
-5. **Display & Export**: Shows the proposal in a beautiful card with copy and download options
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Then edit `.env.local` and fill in your credentials:
+   ```env
+   DATABASE_URL=postgresql://user:password@localhost:5432/clientforge
+   NEXTAUTH_URL=http://localhost:3000
+   NEXTAUTH_SECRET=<generate with: openssl rand -base64 32>
+   GOOGLE_CLIENT_ID=your-google-client-id
+   GOOGLE_CLIENT_SECRET=your-google-client-secret
+   GOOGLE_GENERATIVE_AI_API_KEY=your-gemini-api-key
+   NEXT_PUBLIC_RAZORPAY_KEY_ID=your-razorpay-key-id
+   RAZORPAY_KEY_SECRET=your-razorpay-key-secret
+   ```
 
-## API Integration
+4. **Set up the database**
+   ```bash
+   pnpm prisma migrate dev
+   ```
 
-### Endpoint
-- **Route**: `/api/generate-proposal`
-- **Method**: `POST`
-- **Request Body**:
-```json
-{
-  "serviceType": "web-development",
-  "clientType": "startup",
-  "priceRange": "10000-25000",
-  "language": "English",
-  "extraDetails": "Custom requirements"
-}
+5. **Run the development server**
+   ```bash
+   pnpm dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) to see the application.
+
+## Project Structure
+
+```
+clientforge/
+├── app/
+│   ├── api/              # API routes
+│   ├── auth/             # Authentication pages
+│   ├── dashboard/        # Protected dashboard
+│   ├── pricing/          # Pricing page
+│   ├── login/            # Login page
+│   ├── signup/           # Signup page
+│   ├── terms/            # Terms of service
+│   ├── privacy/          # Privacy policy
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Home page
+├── components/
+│   ├── navigation.tsx    # Main navigation
+│   ├── footer.tsx        # Footer component
+│   ├── proposal-form.tsx # Proposal generation form
+│   └── ui/               # UI components
+├── lib/
+│   ├── auth.ts           # NextAuth configuration
+│   ├── prisma.ts         # Prisma client
+│   └── utils.ts          # Utility functions
+├── prisma/
+│   └── schema.prisma     # Database schema
+├── public/               # Static assets
+└── styles/               # Global styles
 ```
 
-### Response
-```json
-{
-  "proposal": "EXECUTIVE SUMMARY\n\nWe are pleased to present..."
-}
-```
+## API Routes
 
-## Gemini 3 Flash Model
+### Authentication
+- `POST /api/auth/signup` - User registration
+- `POST /api/auth/[...nextauth]` - NextAuth routes
 
-**Model ID**: `gemini-3-flash-preview`
+### Dashboard
+- `GET /api/dashboard/stats` - User statistics
 
-### Key Features
-- Fast, latest-generation inference for real-time applications
-- Supports advanced text generation
-- Optimized for cost and speed
-- Perfect for business proposal generation
+### Billing
+- `POST /api/billing/create-order` - Create payment order
+- `POST /api/billing/verify-payment` - Verify payment
 
-### Configuration
-- **Temperature**: 0.7 (balanced creativity and consistency)
-- **Max Output Tokens**: 1024 (keeps proposals concise but complete)
-- **Top P**: 0.9 (diverse yet focused responses)
+### Content
+- `POST /api/generate-proposal` - Generate proposal with AI
 
-## Prompt Engineering
+## Database Schema
 
-The app uses carefully crafted prompts that include:
-- Service type and client context
-- Budget information
-- Language-specific instructions
-- Proposal structure requirements (Executive Summary, Service Overview, Deliverables, Timeline, Pricing, Why Partner)
-- Tone guidelines (human-like, professional, concise, impactful)
+### User
+- id, email, name, password, phone, image
+- plan (free/pro), emailVerified, createdAt, updatedAt
 
-## Error Handling
+### Proposal
+- id, userId, title, content, clientName, serviceType
+- createdAt, updatedAt
 
-If you see "Gemini API key is not configured":
-1. Make sure your API key is added to the project Vars
-2. Restart the development server
-3. Try generating a proposal again
-
-## Customization
-
-### Modify Service Types
-Edit the dropdown options in `/components/proposal-form.tsx`:
-```tsx
-<option value="your-service">Your Service</option>
-```
-
-### Adjust Proposal Style
-Modify the prompt in `/app/api/generate-proposal/route.ts` to change:
-- Proposal sections
-- Tone and formality
-- Length and detail level
-
-### Change Language Support
-Add new languages in the `languageInstructions` object:
-```ts
-const languageInstructions = {
-  YourLanguage: 'Custom instructions for your language...'
-}
-```
+### Subscription
+- id, userId, plan, status, currentPeriodStart, currentPeriodEnd
+- razorpaySubscriptionId, createdAt, updatedAt
 
 ## Deployment
 
-The app is ready to deploy to Vercel:
-1. Make sure your `GOOGLE_GEMINI_API_KEY` is set in project environment variables
-2. Push to your GitHub repository
-3. Deploy through Vercel dashboard or CLI
+### Deploy to Vercel
 
-## Performance
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy
 
-- Typical proposal generation: 2-4 seconds
-- Lightweight request/response cycle using Fetch API
-- Optimized for mobile and desktop
-
-## File Structure
-
-```
-app/
-├── api/
-│   └── generate-proposal/
-│       └── route.ts          # API endpoint using Gemini API
-├── layout.tsx                # Root layout with dark theme
-├── page.tsx                  # Main page component
-└── globals.css              # Global styles and design tokens
-
-components/
-├── proposal-form.tsx         # Form component for proposal inputs
-└── proposal-output.tsx       # Display component for generated proposals
+```bash
+vercel deploy
 ```
 
-## Future Enhancements
+### Environment Variables on Vercel
 
-Potential features to add:
-- Save generated proposals to database
-- Email proposals directly to clients
-- Template customization
-- Multi-proposal comparison
-- Client management system
-- Analytics and usage tracking
+Set all the variables from `.env.example` in your Vercel project settings.
+
+## Pricing Plans
+
+### Free Plan
+- 3 proposals per day
+- Basic templates
+- Copy & download proposals
+- Hindi + English support
+
+### Pro Plan ($15/month)
+- Unlimited proposals
+- Premium templates
+- PDF export with branding
+- Hindi + English + Hinglish
+- Priority support
+- Advanced analytics
+- Team collaboration
+
+## Development
+
+### Database Migrations
+
+```bash
+# Create a new migration
+pnpm prisma migrate dev --name <migration_name>
+
+# View database
+pnpm prisma studio
+```
+
+### Type Generation
+
+```bash
+pnpm prisma generate
+```
+
+### Linting
+
+```bash
+pnpm lint
+```
+
+### Building
+
+```bash
+pnpm build
+pnpm start
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Support
 
-For issues with:
-- **Google Gemini API**: Visit [Google AI Documentation](https://ai.google.dev/docs)
-- **Next.js**: Check [Next.js Documentation](https://nextjs.org/docs)
-- **Tailwind CSS**: See [Tailwind Documentation](https://tailwindcss.com/docs)
+For support, email support@getclientforge.xyz or create an issue in the repository.
+
+## Roadmap
+
+- [ ] Mobile app
+- [ ] Advanced analytics dashboard
+- [ ] Team collaboration features
+- [ ] Custom branding options
+- [ ] API for third-party integrations
+- [ ] Webhook support
+- [ ] More language support
+
+## Changelog
+
+### v1.0.0 (Initial Release)
+- User authentication with NextAuth.js
+- Proposal generation with AI
+- Multi-language support
+- Dashboard with statistics
+- Subscription management
+- Razorpay payment integration
+

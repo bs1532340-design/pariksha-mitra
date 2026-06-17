@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -113,6 +112,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --animation-fade-in: fade-in 0.5s ease-out;
+  --animation-slide-up: slide-up 0.6s ease-out;
+  --animation-zoom-in: zoom-in-95 0.5s ease-out;
 }
 
 @layer base {
@@ -134,28 +136,6 @@
     }
   }
 
-  @keyframes zoom-in-95 {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes slide-in-from-bottom {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
   @keyframes slide-up {
     from {
       opacity: 0;
@@ -167,266 +147,39 @@
     }
   }
 
-  @keyframes slide-in-left {
+  @keyframes zoom-in-95 {
     from {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: scale(0.95);
     }
     to {
       opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slide-in-right {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-
-  @keyframes glow-pulse {
-    0%, 100% {
-      opacity: 0.6;
-    }
-    50% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes gradient-shift {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
-  @keyframes scale-up-hover {
-    from {
       transform: scale(1);
     }
-    to {
-      transform: scale(1.02);
-    }
   }
 
-  @keyframes rotate-slow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-
-  .animate-in {
+  .animate-fade-in {
     animation: fade-in 0.5s ease-out;
   }
 
-  .fade-in {
-    animation: fade-in var(--animation-duration, 0.5s) ease-out;
-  }
-
-  .fade-in-fast {
-    animation: fade-in 0.3s ease-out;
-  }
-
-  .fade-in-slow {
-    animation: fade-in 0.8s ease-out;
-  }
-
-  .zoom-in-95 {
-    animation: zoom-in-95 var(--animation-duration, 0.5s) ease-out;
-  }
-
-  .slide-in-from-bottom-4 {
-    animation: slide-in-from-bottom var(--animation-duration, 0.3s) ease-out;
-  }
-
-  .slide-up {
+  .animate-slide-up {
     animation: slide-up 0.6s ease-out;
   }
 
-  .slide-up-delay-100 {
+  .animate-slide-up-100 {
     animation: slide-up 0.6s ease-out 0.1s both;
   }
 
-  .slide-up-delay-200 {
+  .animate-slide-up-200 {
     animation: slide-up 0.6s ease-out 0.2s both;
   }
 
-  .slide-up-delay-300 {
+  .animate-slide-up-300 {
     animation: slide-up 0.6s ease-out 0.3s both;
   }
 
-  .slide-in-left {
-    animation: slide-in-left 0.5s ease-out;
-  }
-
-  .slide-in-right {
-    animation: slide-in-right 0.5s ease-out;
-  }
-
-  .float {
-    animation: float 4s ease-in-out infinite;
-  }
-
-  .float-delay-500 {
-    animation: float 4s ease-in-out infinite 0.5s;
-  }
-
-  .float-delay-1000 {
-    animation: float 4s ease-in-out infinite 1s;
-  }
-
-  .glow-pulse {
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
-
-  .gradient-shift {
-    background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
-  }
-
-  .shimmer {
-    background-size: 1000px 100%;
-    animation: shimmer 2s infinite;
-  }
-
-  .scale-up-hover {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  .scale-up-hover:hover {
-    animation: scale-up-hover 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-  }
-
-  .rotate-slow {
-    animation: rotate-slow 20s linear infinite;
-  }
-
-  .duration-300 {
-    animation-duration: 0.3s;
-  }
-
-  .duration-500 {
-    animation-duration: 0.5s;
-  }
-
-  /* Enhanced animations for SaaS-style effects */
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes subtle-glow {
-    0%, 100% {
-      box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.1);
-    }
-    50% {
-      box-shadow: 0 0 0 8px rgba(79, 70, 229, 0);
-    }
-  }
-
-  @keyframes pulse-soft {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.7;
-    }
-  }
-
-  .fade-in-up {
-    animation: fade-in-up 0.5s ease-out;
-  }
-
-  .subtle-glow {
-    animation: subtle-glow 3s ease-in-out infinite;
-  }
-
-  .pulse-soft {
-    animation: pulse-soft 3s ease-in-out infinite;
-  }
-
-  /* Smooth transitions for all interactive elements */
-  @layer components {
-    .transition-smooth {
-      @apply transition-all duration-300 ease-out;
-    }
-
-    .transition-fast {
-      @apply transition-all duration-200 ease-out;
-    }
-
-    .transition-smooth-lg {
-      @apply transition-all duration-500 ease-out;
-    }
-
-    /* Professional button animations */
-    .btn-hover-glow {
-      @apply transition-all duration-300;
-    }
-
-    .btn-hover-glow:hover {
-      @apply shadow-lg shadow-accent/30;
-    }
-
-    /* Card entrance animations */
-    .card-animate {
-      @apply opacity-0 animate-in fade-in slide-up duration-500;
-    }
-
-    /* Smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Enhanced focus states for accessibility */
-    input:focus,
-    select:focus,
-    textarea:focus {
-      @apply ring-2 ring-accent/50 transition-all duration-200;
-    }
-
-    /* Smooth border transitions */
-    input,
-    select,
-    textarea {
-      @apply transition-all duration-200;
-    }
+  .animate-zoom-in {
+    animation: zoom-in-95 0.5s ease-out;
   }
 }
+

@@ -1,31 +1,27 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
+import { SessionProvider } from 'next-auth/react'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ClientForge - Forge Winning Proposals with AI',
-  description: 'Forge Winning Proposals with AI',
-  generator: 'v0.app',
+  title: 'ClientForge - AI-powered proposal generator',
+  description: 'AI-powered proposal generator for freelancers, agencies, and startups.',
+  openGraph: {
+    title: 'ClientForge',
+    description: 'AI-powered proposal generator for freelancers, agencies, and startups.',
+    type: 'website',
+    url: 'https://getclientforge.xyz',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ClientForge',
+    description: 'AI-powered proposal generator for freelancers, agencies, and startups.',
+  },
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/favicon.ico',
   },
 }
 
@@ -37,8 +33,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="font-sans antialiased bg-background text-foreground">
-        {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        <SessionProvider>
+          {children}
+        </SessionProvider>
       </body>
     </html>
   )
