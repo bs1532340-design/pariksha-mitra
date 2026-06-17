@@ -48,7 +48,7 @@ export default function ProposalForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full max-w-md px-4 sm:px-0 space-y-4 md:space-y-5 animate-in fade-in duration-500"
+      className="w-full max-w-md px-4 sm:px-0 space-y-4 md:space-y-5 animate-in fade-in duration-500 slide-up-delay-100"
     >
       {/* Service Type */}
       <div className="space-y-2 transition-smooth">
@@ -59,7 +59,7 @@ export default function ProposalForm({
           name="serviceType"
           value={formData.serviceType}
           onChange={handleChange}
-          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20"
+          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20 hover:border-accent/50"
         >
           <option value="web-development">Web Development</option>
           <option value="mobile-app">Mobile App Development</option>
@@ -79,7 +79,7 @@ export default function ProposalForm({
           name="clientType"
           value={formData.clientType}
           onChange={handleChange}
-          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20"
+          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20 hover:border-accent/50"
         >
           <option value="startup">Startup</option>
           <option value="smb">Small-Medium Business</option>
@@ -100,7 +100,7 @@ export default function ProposalForm({
           value={formData.priceRange}
           onChange={handleChange}
           placeholder="e.g., 10000-25000"
-          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20"
+          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20 hover:border-accent/50"
         />
       </div>
 
@@ -113,7 +113,7 @@ export default function ProposalForm({
           name="language"
           value={formData.language}
           onChange={handleChange}
-          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20"
+          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20 hover:border-accent/50"
         >
           <option value="English">English</option>
           <option value="Hindi">Hindi</option>
@@ -132,7 +132,7 @@ export default function ProposalForm({
           onChange={handleChange}
           placeholder="Describe your project, specific requirements, timeline, or any other details..."
           rows={4}
-          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20 resize-none"
+          className="w-full px-3 md:px-4 py-2 md:py-2.5 rounded-lg bg-input border border-border text-sm md:text-base text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all duration-300 focus:shadow-lg focus:shadow-accent/20 resize-none hover:border-accent/50"
         />
       </div>
 

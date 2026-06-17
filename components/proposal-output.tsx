@@ -85,17 +85,17 @@ export default function ProposalOutput({ proposal }: { proposal: string }) {
 
   return (
     <div className="w-full max-w-2xl px-4 sm:px-0 animate-in fade-in zoom-in-95 duration-500">
-      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-lg">
+      <div className="rounded-lg border border-border bg-card overflow-hidden shadow-lg transition-smooth hover:shadow-xl hover:shadow-accent/10">
         {/* Header */}
         <div className="bg-gradient-to-r from-accent/20 to-accent/10 border-b border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between gap-3">
           <h2 className="text-base md:text-xl font-bold text-foreground flex items-center gap-2 min-w-0">
-            <span className="w-3 h-3 rounded-full bg-accent flex-shrink-0"></span>
+            <span className="w-3 h-3 rounded-full bg-accent flex-shrink-0 animate-pulse"></span>
             <span className="truncate">Your Generated Proposal</span>
           </h2>
           <div className="flex gap-1 md:gap-2 flex-shrink-0">
             <button
               onClick={handleCopy}
-              className="p-2 md:p-2.5 hover:bg-accent/10 rounded-lg transition-colors duration-200 text-muted-foreground hover:text-accent"
+              className="p-2 md:p-2.5 hover:bg-accent/10 rounded-lg transition-smooth text-muted-foreground hover:text-accent scale-up-hover"
               title="Copy to clipboard"
             >
               {copied ? (
@@ -107,14 +107,14 @@ export default function ProposalOutput({ proposal }: { proposal: string }) {
             <button
               onClick={handleDownloadPdf}
               disabled={pdfLoading}
-              className="p-2 md:p-2.5 hover:bg-accent/10 rounded-lg transition-colors duration-200 text-muted-foreground hover:text-accent disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 md:p-2.5 hover:bg-accent/10 rounded-lg transition-smooth text-muted-foreground hover:text-accent disabled:opacity-50 disabled:cursor-not-allowed scale-up-hover"
               title="Download as PDF"
             >
               <FileText className="w-5 h-5" />
             </button>
             <button
               onClick={handleDownloadTxt}
-              className="p-2 md:p-2.5 hover:bg-accent/10 rounded-lg transition-colors duration-200 text-muted-foreground hover:text-accent"
+              className="p-2 md:p-2.5 hover:bg-accent/10 rounded-lg transition-smooth text-muted-foreground hover:text-accent scale-up-hover"
               title="Download as text file"
             >
               <Download className="w-5 h-5" />
@@ -132,7 +132,7 @@ export default function ProposalOutput({ proposal }: { proposal: string }) {
         </div>
 
         {/* Footer */}
-        <div className="bg-card border-t border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between text-xs md:text-sm text-muted-foreground gap-2">
+        <div className="bg-card border-t border-border px-4 md:px-6 py-3 md:py-4 flex items-center justify-between text-xs md:text-sm text-muted-foreground gap-2 transition-smooth">
           <span>Generated with ClientForge</span>
           <span className="text-right">Click copy or download to save</span>
         </div>
@@ -141,7 +141,7 @@ export default function ProposalOutput({ proposal }: { proposal: string }) {
       {/* Success Toast */}
       {showToast && (
         <div className="fixed bottom-6 right-6 animate-in fade-in slide-in-from-bottom-4 duration-300 z-50">
-          <div className="rounded-lg bg-accent text-accent-foreground px-3 md:px-4 py-2 md:py-3 shadow-lg flex items-center gap-2 font-medium text-xs md:text-sm">
+          <div className="rounded-lg bg-accent text-accent-foreground px-3 md:px-4 py-2 md:py-3 shadow-lg flex items-center gap-2 font-medium text-xs md:text-sm transition-smooth">
             <Check className="w-4 h-4 md:w-5 md:h-5" />
             Proposal copied to clipboard!
           </div>
