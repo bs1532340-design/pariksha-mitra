@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { Zap, FileText, TrendingUp, Sparkles } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
+export const dynamic = 'force-dynamic'
+
 interface DashboardStats {
   totalProposals: number
   proposalsThisMonth: number

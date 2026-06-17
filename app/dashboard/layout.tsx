@@ -4,12 +4,23 @@ import { useSession } from 'next-auth/react'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { LogOut, Home, BarChart3, Settings, FileText } from 'lucide-react'
+import { AuthProvider } from '@/components/auth-provider'
+
+export const dynamic = 'force-dynamic'
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  return (
+    <AuthProvider>
+      <DashboardContent>{children}</DashboardContent>
+    </AuthProvider>
+  )
+}
+
+function DashboardContent({ children }: { children: React.ReactNode }) {
   const { data: session, status } = useSession()
 
   if (status === 'loading') {

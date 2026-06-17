@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
-import { SessionProvider } from 'next-auth/react'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -33,10 +32,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className="font-sans antialiased bg-background text-foreground">
-        <SessionProvider>
-          {children}
-        </SessionProvider>
+        {children}
       </body>
     </html>
   )
 }
+

@@ -1,24 +1,28 @@
-import { auth } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
 import { startOfDay, endOfDay } from 'date-fns'
 
 export async function GET() {
   try {
-    const session = await auth()
+    const session = await getServerSession()
 
-    if (!session?.user?.id) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { plan: true },
+      where: { email: session.user.email! },
+      select: { id: true, plan: true },
     })
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
 
     // Get total proposals
     const totalProposals = await prisma.proposal.count({
-      where: { userId: session.user.id },
+      where: { userId: user.id },
     })
 
     // Get proposals this month
@@ -28,7 +32,7 @@ export async function GET() {
 
     const proposalsThisMonth = await prisma.proposal.count({
       where: {
-        userId: session.user.id,
+        userId: user.id,
         createdAt: {
           gte: startOfMonth,
           lte: endOfMonth,
@@ -42,7 +46,7 @@ export async function GET() {
 
     const todayUsage = await prisma.proposal.count({
       where: {
-        userId: session.user.id,
+        userId: user.id,
         createdAt: {
           gte: today_start,
           lte: today_end,
@@ -53,7 +57,7 @@ export async function GET() {
     return NextResponse.json({
       totalProposals,
       proposalsThisMonth,
-      planLimit: user?.plan === 'pro' ? Infinity : 3,
+      planLimit: user.plan === 'pro' ? Infinity : 3,
       planUsed: todayUsage,
     })
   } catch (error) {

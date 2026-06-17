@@ -1,17 +1,27 @@
-import { auth } from '@/lib/auth'
+import { getServerSession } from 'next-auth'
 import { prisma } from '@/lib/prisma'
 import { NextResponse, NextRequest } from 'next/server'
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await auth()
+    const session = await getServerSession()
 
-    if (!session?.user?.id) {
+    if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
     const { razorpayOrderId, razorpayPaymentId, razorpaySignature } =
       await request.json()
+
+    // Get user by email
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email! },
+      select: { id: true },
+    })
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
 
     // Verify payment signature with Razorpay API
     // This is a placeholder - actual verification would use Razorpay's API
@@ -19,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     // Update user plan to Pro
     await prisma.user.update({
-      where: { id: session.user.id },
+      where: { id: user.id },
       data: { plan: 'pro' },
     })
 
@@ -28,7 +38,7 @@ export async function POST(request: NextRequest) {
     nextMonthDate.setMonth(nextMonthDate.getMonth() + 1)
 
     await prisma.subscription.upsert({
-      where: { userId: session.user.id },
+      where: { userId: user.id },
       update: {
         plan: 'pro',
         status: 'active',
@@ -37,7 +47,7 @@ export async function POST(request: NextRequest) {
         currentPeriodEnd: nextMonthDate,
       },
       create: {
-        userId: session.user.id,
+        userId: user.id,
         plan: 'pro',
         status: 'active',
         razorpaySubscriptionId: razorpayPaymentId,

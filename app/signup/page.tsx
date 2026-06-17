@@ -5,8 +5,11 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Mail, Lock, User, Loader2, Chrome } from 'lucide-react'
 import { signIn } from 'next-auth/react'
+import { Suspense } from 'react'
 
-export default function SignupPage() {
+export const dynamic = 'force-dynamic'
+
+function SignupContent() {
   const router = useRouter()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -206,5 +209,13 @@ export default function SignupPage() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <SignupContent />
+    </Suspense>
   )
 }

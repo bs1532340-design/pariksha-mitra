@@ -6,8 +6,11 @@ import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { Mail, Lock, Loader2, Chrome } from 'lucide-react'
 import Image from 'next/image'
+import { Suspense } from 'react'
 
-export default function LoginPage() {
+export const dynamic = 'force-dynamic'
+
+function LoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
@@ -165,5 +168,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <LoginContent />
+    </Suspense>
   )
 }
